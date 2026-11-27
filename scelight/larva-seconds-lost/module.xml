@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <moduleBean v="1">
     <name>Larva Seconds Lost</name>
-    <version major="3" minor="1" revision="1" v="1"/>
+    <version major="3" minor="3" revision="0" v="1"/>
     <folder>larva-seconds-lost</folder>
-    <archiveFile path="LarvaSecondsLost-3.1.1.zip" sha256="c6709a06cd5f4029a032efa6e1ce38b3172eaf851915c32e63eaf49f9fb1d448" v="1"/>
-    <urlList>https://minetonight.github.io/scelight/larva-seconds-lost/LarvaSecondsLost-3.1.1.zip</urlList>
-    <archiveSize>1715147</archiveSize>
-    <fileList path="Scelight/mod-x/larva-seconds-lost/3.1.1/Scelight-mod-x-manifest.xml" sha256="115348308a8835a42a26c75cb9e9396d4eb8b763cc79ab369ae1c4f4b99149f8" v="1"/>
-    <fileList path="Scelight/mod-x/larva-seconds-lost/3.1.1/jakarta.xml.bind-api-2.3.3.jar" sha256="c04539f472e9a6dd0c7685ea82d677282269ab8e7baca2e14500e381e0c6cec5" v="1"/>
-    <fileList path="Scelight/mod-x/larva-seconds-lost/3.1.1/javax.activation-api-1.2.0.jar" sha256="43fdef0b5b6ceb31b0424b208b930c74ab58fac2ceeb7b3f6fd3aeb8b5ca4393" v="1"/>
-    <fileList path="Scelight/mod-x/larva-seconds-lost/3.1.1/jaxb-impl-2.3.3.jar" sha256="e5178d0c7948247f75a13c689bf36f4d5d4910a121f712aa3b20ae94377069d8" v="1"/>
-    <fileList path="Scelight/mod-x/larva-seconds-lost/3.1.1/larva-seconds-lost.jar" sha256="6d6a50b7eeb11f44da1d6c7f9d3c1d21560d122eb82df33206f87a05364393c5" v="1"/>
+    <archiveFile path="LarvaSecondsLost-3.3.zip" sha256="ef5fbbce929322f2b2819c6eabc02cb72df1aafb53bd7a83b7aeba43810fc838" v="1"/>
+    <urlList>https://minetonight.github.io/scelight/larva-seconds-lost/LarvaSecondsLost-3.3.zip</urlList>
+    <archiveSize>1765990</archiveSize>
+    <fileList path="Scelight/mod-x/larva-seconds-lost/3.3/Scelight-mod-x-manifest.xml" sha256="c01c9de943145b05028bace1d57ff9d54e71badd2850f7dd94f2e683036e3705" v="1"/>
+    <fileList path="Scelight/mod-x/larva-seconds-lost/3.3/jakarta.xml.bind-api-2.3.3.jar" sha256="c04539f472e9a6dd0c7685ea82d677282269ab8e7baca2e14500e381e0c6cec5" v="1"/>
+    <fileList path="Scelight/mod-x/larva-seconds-lost/3.3/javax.activation-api-1.2.0.jar" sha256="43fdef0b5b6ceb31b0424b208b930c74ab58fac2ceeb7b3f6fd3aeb8b5ca4393" v="1"/>
+    <fileList path="Scelight/mod-x/larva-seconds-lost/3.3/jaxb-impl-2.3.3.jar" sha256="e5178d0c7948247f75a13c689bf36f4d5d4910a121f712aa3b20ae94377069d8" v="1"/>
+    <fileList path="Scelight/mod-x/larva-seconds-lost/3.3/larva-seconds-lost.jar" sha256="d9573af90733c569fc018db35058e3b1e5fbffe7abd9df687defaf032178e985" v="1"/>
 </moduleBean>
