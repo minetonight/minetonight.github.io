@@ -1,0 +1,421 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>body{margin:0}[hidden]{display:none!important}img{max-width:100%}</style>
+<title>Scorpion Macro Career</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one reading column; charts sit full-width in it, each with its verdict line above and a data table below. */
+:root {
+  --bg: #f3f2f7;
+  --surface: #ffffff;
+  --ink: #1d1b26;
+  --ink-2: #5d5a6b;
+  --ink-3: #8a8798;
+  --rule: #dddae6;
+  --grid: #ecebf2;
+  --accent: #5b3fc4;
+  --band: #ebe8f3;
+  --p-early: #257de0;
+  --p-mid: #f47230;
+  --p-late: #00b894;
+  --r-eu: #6a4ce2;
+  --r-na: #f2a600;
+  --bad: #c2362f;
+  --good: #1f7a3a;
+  --font-display: "Barlow Condensed", "Arial Narrow", "Roboto Condensed", sans-serif;
+  --font-body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font-data: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #16141d; --surface: #1f1c28; --ink: #ecebf2; --ink-2: #aaa6b9; --ink-3: #807c90;
+    --rule: #34303f; --grid: #2a2735; --accent: #a594f2; --band: #26232f;
+    --p-early: #338ced; --p-mid: #e76624; --p-late: #00a888; --r-eu: #9887ef; --r-na: #d28e05;
+    --bad: #f0706a; --good: #5cc27a; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #16141d; --surface: #1f1c28; --ink: #ecebf2; --ink-2: #aaa6b9; --ink-3: #807c90;
+  --rule: #34303f; --grid: #2a2735; --accent: #a594f2; --band: #26232f;
+  --p-early: #338ced; --p-mid: #e76624; --p-late: #00a888; --r-eu: #9887ef; --r-na: #d28e05;
+  --bad: #f0706a; --good: #5cc27a; color-scheme: dark;
+}
+body { background: var(--bg); color: var(--ink); font: 400 15.5px/1.6 var(--font-body); }
+.wrap { max-width: 880px; margin: 0 auto; padding-block: 40px 72px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); display: grid; gap: 44px; }
+header { display: grid; gap: 10px; }
+.eyebrow { font: 500 12px/1 var(--font-data); letter-spacing: .12em; text-transform: uppercase; color: var(--accent); }
+h1 { font: 700 clamp(40px, 7vw, 64px)/0.95 var(--font-display); letter-spacing: .005em; margin: 0; text-wrap: balance; }
+h2 { font: 700 30px/1.05 var(--font-display); margin: 0; letter-spacing: .01em; text-wrap: balance; }
+h3 { font: 600 16px/1.3 var(--font-body); margin: 0; }
+p { margin: 0; max-width: 68ch; }
+.lede { font-size: 18px; line-height: 1.55; color: var(--ink); max-width: 64ch; }
+.meta { font: 400 13px/1.5 var(--font-data); color: var(--ink-2); }
+section { display: grid; gap: 16px; }
+.verdict { border-left: 3px solid var(--accent); padding: 2px 0 2px 14px; font-weight: 500; }
+.figure { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 18px 18px 12px; display: grid; gap: 10px; min-width: 0; }
+.fig-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 18px; align-items: baseline; }
+.fig-note { font-size: 13px; color: var(--ink-2); }
+.legend { display: flex; flex-wrap: wrap; gap: 4px 16px; font-size: 13px; color: var(--ink-2); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend i { width: 14px; height: 3px; border-radius: 2px; display: inline-block; }
+.legend i.dot { width: 9px; height: 9px; border-radius: 50%; }
+.chart { position: relative; width: 100%; min-width: 0; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.chart text { font-family: var(--font-data); font-size: 11px; fill: var(--ink-3); }
+.chart .lbl { font-size: 11.5px; font-weight: 500; fill: var(--ink-2); }
+.chart .brk { font-family: var(--font-body); font-size: 11px; fill: var(--ink-3); }
+.tip { position: absolute; pointer-events: none; background: var(--surface); color: var(--ink); border: 1px solid var(--rule); border-radius: 8px; padding: 8px 10px; font: 12px/1.45 var(--font-data); box-shadow: 0 6px 20px rgb(0 0 0 / .12); white-space: nowrap; z-index: 2; }
+.tip b { font-family: var(--font-body); font-weight: 600; display: block; margin-bottom: 2px; }
+.tip .sw { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; }
+details { font-size: 13px; }
+details summary { cursor: pointer; color: var(--accent); font-weight: 500; width: max-content; }
+details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+.tbl { overflow-x: auto; margin-top: 8px; }
+table { border-collapse: collapse; font: 12.5px/1.4 var(--font-data); font-variant-numeric: tabular-nums; min-width: 100%; }
+th, td { padding: 5px 10px; text-align: right; border-bottom: 1px solid var(--grid); white-space: nowrap; }
+th { font: 600 12px/1.3 var(--font-body); color: var(--ink-2); border-bottom-color: var(--rule); }
+th:first-child, td:first-child { text-align: left; }
+.era td:first-child { font-weight: 500; }
+.era tr.now td { background: var(--band); }
+ol.issues { margin: 0; padding: 0; list-style: none; display: grid; gap: 14px; counter-reset: i; }
+ol.issues li { counter-increment: i; display: grid; grid-template-columns: 34px 1fr; gap: 0 10px; }
+ol.issues li::before { content: counter(i); font: 700 26px/1 var(--font-display); color: var(--accent); }
+ol.issues li div { min-width: 0; display: grid; gap: 3px; }
+ul.plain { margin: 0; padding-left: 18px; display: grid; gap: 6px; max-width: 68ch; }
+.targets { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; }
+.target { background: var(--surface); border: 1px solid var(--rule); border-radius: 10px; padding: 14px; display: grid; gap: 4px; align-content: start; }
+.target .k { font: 500 11.5px/1.2 var(--font-data); letter-spacing: .08em; text-transform: uppercase; color: var(--ink-2); }
+.target .v { font: 700 28px/1 var(--font-display); }
+.target .v small { font: 500 14px var(--font-body); color: var(--ink-2); }
+.target p { font-size: 13px; color: var(--ink-2); }
+.num-bad { color: var(--bad); }
+.num-good { color: var(--good); }
+footer { font-size: 13px; color: var(--ink-2); display: grid; gap: 8px; border-top: 1px solid var(--rule); padding-top: 18px; }
+@media (prefers-reduced-motion: no-preference) { .tip { transition: opacity .08s; } }
+</style>
+</head><body>
+
+<div class="wrap">
+<header>
+  <div class="eyebrow">Zerg macro review · ladder 1v1 · EU + NA</div>
+  <h1>Scorpion, 2016–2026</h1>
+  <p class="meta" id="meta"></p>
+  <p class="lede">One big jump, then seven flat years. You opened like a masters player and played the middle and late game like a diamond and platinum player in 2020, and you still do in 2026. Your 2026 numbers are your career best, but only by a little over 2020, after about 1,600 more ladder games on EU and NA. More ladder has stopped making you better.</p>
+</header>
+
+<section>
+  <h2>The arc in one table</h2>
+  <p>Averages per era, EU account, weighted by games. Larva figures are per hatchery per minute (E / M / L = early / mid / late game). Reach = share of games that got there.</p>
+  <div class="figure"><div class="tbl" id="eraTable"></div></div>
+  <p>The real progress happened between 2016 and early 2019: mid-game larva generation rose from 4.3 to 6.1, and 44 drones came almost two minutes earlier. After 2019 the rows barely move. In 2026, mid-game missed larva is 2.40 against 2.74 in 2019–20, and late-game inject uptime is about the same as in 2017–18. You reach 200 supply in 14% of games, against 15% in 2019–20.</p>
+</section>
+
+<section>
+  <h2>Wasted larva</h2>
+  <p class="verdict">Your early game is now clean; mid and late game have improved by about 12% in six years.</p>
+  <div class="figure">
+    <div class="fig-head"><h3>Larva missed per hatchery per minute · EU</h3><span class="fig-note">lower is better</span></div>
+    <div class="legend" id="lg-miss"></div>
+    <div class="chart" id="c-miss"></div>
+    <details><summary>Show data table</summary><div class="tbl" id="t-miss"></div></details>
+  </div>
+  <p>A hatchery sitting at 3 larva wastes what it would spawn. With 3 hatcheries over a 4-minute mid game, 2.4 missed per hatchery per minute is about 30 larva unused every game. The late game wastes more. This is the clearest weakness in the data, and inject uptime doesn't cause it: the larva are there and you don't spend them.</p>
+</section>
+
+<section>
+  <h2>Larva generated</h2>
+  <p class="verdict">Mid-game production jumped once in 2019, then crept up. The late game is still the lowest line by far.</p>
+  <div class="figure">
+    <div class="fig-head"><h3>Larva generated per hatchery per minute · EU</h3><span class="fig-note">higher is better</span></div>
+    <div class="legend" id="lg-gen"></div>
+    <div class="chart" id="c-gen"></div>
+    <details><summary>Show data table</summary><div class="tbl" id="t-gen"></div></details>
+  </div>
+</section>
+
+<section>
+  <h2>Inject uptime</h2>
+  <p class="verdict">Mid-game uptime has sat around 50% since 2019, and late-game around 32% since 2017.</p>
+  <div class="figure">
+    <div class="fig-head"><h3>Inject uptime, % of hatchery time · EU</h3><span class="fig-note">higher is better</span></div>
+    <div class="legend" id="lg-upt"></div>
+    <div class="chart" id="c-upt"></div>
+    <details><summary>Show data table</summary><div class="tbl" id="t-upt"></div></details>
+  </div>
+  <p>Read this one with care. In ZvP and ZvT your natural queen spreads creep instead of injecting, so about 50% in the early game is your style and not neglect. Your late game has no such excuse. Late-game uptime of 31–35% has not changed in nine years.</p>
+</section>
+
+<section>
+  <h2>Drones and supply</h2>
+  <p class="verdict">Openings got two minutes faster. How often you build a full economy stopped improving in 2019.</p>
+  <div class="figure">
+    <div class="fig-head"><h3>44 drones, median time · EU</h3><span class="fig-note">lower is faster</span></div>
+    <div class="chart" id="c-m44"></div>
+    <details><summary>Show data table</summary><div class="tbl" id="t-m44"></div></details>
+  </div>
+  <div class="figure">
+    <div class="fig-head"><h3>Share of games reaching 66 drones · EU</h3><span class="fig-note">higher is better</span></div>
+    <div class="chart" id="c-r66"></div>
+  </div>
+  <div class="figure">
+    <div class="fig-head"><h3>Share of games reaching 200 supply · EU</h3><span class="fig-note">higher is better</span></div>
+    <div class="chart" id="c-r200"></div>
+    <details><summary>Show data table</summary><div class="tbl" id="t-reach"></div></details>
+  </div>
+  <p>You reach 66 drones in about 40% of games and 80 drones in about 20%. When you do get to 66, it takes about 8:15 on average. Most games are decided before your economy is complete.</p>
+</section>
+
+<section>
+  <h2>2026 by matchup</h2>
+  <p class="verdict">ZvZ is your most common matchup and has the weakest economy; ZvP and ZvT openings are solid.</p>
+  <div class="figure"><div class="tbl" id="muTable"></div></div>
+  <p>ZvZ is 38% of your 2026 EU games. You reach 66 drones in 8% of ZvZ games, and more than 40% never reach 44. Some of that is the matchup. It also means ZvZ results come from early fights and unit control, which larva stats can't measure or fix.</p>
+  <p>Within the year, March–April was your best macro ever (66 drones 7:51, 150 supply 9:52, 200 supply 11:50). July–August had the most games (144 EU, 60 of them ZvZ) and went backwards on every milestone: more games, worse macro.</p>
+</section>
+
+<section>
+  <h2>Volume, EU and NA</h2>
+  <p class="verdict">Plenty of games. The flat years were not caused by a lack of play.</p>
+  <div class="figure">
+    <div class="fig-head"><h3>Ladder games used per period</h3><span class="fig-note">quarters to 2025, two-month periods in 2026</span></div>
+    <div class="legend" id="lg-vol"></div>
+    <div class="chart" id="c-vol"></div>
+    <details><summary>Show data table</summary><div class="tbl" id="t-vol"></div></details>
+  </div>
+  <p>NA is a bit weaker than EU in the same periods: 2026 early-game inject uptime was 41–52% on NA against 47–61% on EU, with similar milestones. That is probably ping. Judge your progress on EU games.</p>
+</section>
+
+<section>
+  <h2>What is holding you back</h2>
+  <ol class="issues">
+    <li><div><h3>Unspent larva after about 6 minutes</h3><p>2.4 missed per hatchery per minute in the mid game, rated diamond, unchanged in substance since 2019.</p></div></li>
+    <li><div><h3>A late game at platinum level, rarely maxed</h3><p>3.0–3.3 missed and about 33% uptime, while only about 40% of games reach the late phase and 14% reach 200 supply. The larva piles up while you are under max. You're either floating minerals or broke because droning stopped. Check unspent resources in a few replays to see which.</p></div></li>
+    <li><div><h3>An economy that tops out</h3><p>66 drones in about 40% of games, 80 drones in about 20%.</p></div></li>
+    <li><div><h3>ZvZ</h3><p>38% of games, the weakest economy, and decided early. Practice the fights.</p></div></li>
+    <li><div><h3>Swings between periods</h3><p>Your best and worst 2026 periods are both in the same year. Playing more games made your macro worse, not better.</p></div></li>
+  </ol>
+</section>
+
+<section>
+  <h2>Outlook</h2>
+  <p>If you keep practicing the way you have since 2019, expect the same numbers in 2027. You played 1,648 ladder games on EU and NA in 2019–20 and gained almost nothing in the mid game. The gains that are left are all in the 6–12 minute window, where masters players pull away from diamond players. Hit the first two targets and your macro moves from diamond to masters. If you don't, more games won't do it either.</p>
+  <div class="targets">
+    <div class="target"><div class="k">Mid-game larva missed</div><div class="v">2.40 → &lt;1.8 <small>/hatch/min</small></div><p>The biggest single lever. Spend all larva every inject round.</p></div>
+    <div class="target"><div class="k">66 drones, ZvP/ZvT</div><div class="v">65% → 80% <small>at ~7:30</small></div><p>You already did 7:33–7:55 in March–April 2026.</p></div>
+    <div class="target"><div class="k">Late-game larva missed</div><div class="v">3.10 → &lt;2.5 <small>/hatch/min</small></div><p>Needs droning and spending after 10:00.</p></div>
+    <div class="target"><div class="k">Late inject uptime</div><div class="v">33% → 40%+</div><p>Flat since 2017.</p></div>
+  </div>
+</section>
+
+<footer>
+  <p><b>Source.</b> Larva Seconds Lost multi-replay analysis in Scelight, run per region and period on your ladder 1v1 replays (EU and NA zips, each game counted once). Periods with fewer than 20 games are left out of the trend charts. 2018-q4 is left out because its replays show a different player. There is a gap between 2023-q2 and 2025-q2 because you weren't playing.</p>
+  <p><b>Limits.</b> These stats cover larva, injects and drone/supply timing only. They include no win/loss, MMR, army control, scouting or decisions. League ratings compare your averages with bands made for single games, so they sit closer to the middle than single games would.</p>
+</footer>
+</div>
+
+<script id="data" type="application/json">[{"id":"2016-q1-eu","period":"2016-q1","region":"eu","x":2016.125,"n":113,"upt":[51.69,36.99,33.97],"gen":[5.93,4.52,3.59],"miss":[2.71,4.2,5.0],"m44":450,"m66":664,"r44":64.6,"r66":7.1,"r200":8.0,"m200":1157,"mu":{"ZvP":{"n":38,"missM":4.22,"m44":428,"r66":7.9,"m66":664},"ZvT":{"n":43,"missM":4.17,"m44":457,"r66":11.6,"m66":914},"ZvZ":{"n":32,"missM":4.27,"m44":485,"r66":0.0,"m66":null}}},{"id":"2016-q2-eu","period":"2016-q2","region":"eu","x":2016.375,"n":25,"upt":[47.24,28.35,1.5],"gen":[5.61,3.88,1.9],"miss":[2.91,4.18,3.86],"m44":650,"m66":1092,"r44":52.0,"r66":4.0,"r200":8.0,"m200":1396,"mu":{"ZvP":{"n":4,"missM":3.58,"m44":592,"r66":25.0,"m66":1092},"ZvT":{"n":15,"missM":4.35,"m44":664,"r66":0.0,"m66":null},"ZvZ":{"n":6,"missM":3.43,"m44":null,"r66":0.0,"m66":null}}},{"id":"2016-q3-eu","period":"2016-q3","region":"eu","x":2016.625,"n":123,"upt":[51.82,41.61,30.9],"gen":[5.4,4.26,3.2],"miss":[2.67,4.05,4.43],"m44":457,"m66":735,"r44":56.1,"r66":5.7,"r200":7.3,"m200":1050,"mu":{"ZvP":{"n":57,"missM":4.05,"m44":450,"r66":8.8,"m66":707},"ZvT":{"n":42,"missM":4.11,"m44":475,"r66":4.8,"m66":1225},"ZvZ":{"n":24,"missM":3.55,"m44":453,"r66":0.0,"m66":null}}},{"id":"2016-q4-eu","period":"2016-q4","region":"eu","x":2016.875,"n":42,"upt":[45.59,39.68,18.7],"gen":[5.82,4.13,2.52],"miss":[2.0,4.06,4.28],"m44":421,"m66":1142,"r44":50.0,"r66":7.1,"r200":7.1,"m200":828,"mu":{"ZvP":{"n":17,"missM":3.9,"m44":403,"r66":0.0,"m66":null},"ZvT":{"n":16,"missM":4.2,"m44":453,"r66":18.8,"m66":1142},"ZvZ":{"n":9,"missM":3.53,"m44":314,"r66":0.0,"m66":null}}},{"id":"2017-q1-eu","period":"2017-q1","region":"eu","x":2017.125,"n":92,"upt":[50.93,51.51,31.12],"gen":[5.96,5.45,3.45],"miss":[2.01,3.45,4.29],"m44":392,"m66":628,"r44":56.5,"r66":19.6,"r200":5.4,"m200":842,"mu":{"ZvP":{"n":37,"missM":3.45,"m44":371,"r66":24.3,"m66":664},"ZvT":{"n":35,"missM":3.49,"m44":428,"r66":25.7,"m66":592},"ZvZ":{"n":20,"missM":2.81,"m44":null,"r66":0.0,"m66":null}}},{"id":"2017-q2-eu","period":"2017-q2","region":"eu","x":2017.375,"n":156,"upt":[54.93,43.38,32.27],"gen":[5.95,4.84,3.82],"miss":[2.29,3.6,3.93],"m44":442,"m66":600,"r44":50.6,"r66":9.6,"r200":5.8,"m200":900,"mu":{"ZvP":{"n":43,"missM":3.55,"m44":457,"r66":11.6,"m66":657},"ZvT":{"n":68,"missM":3.63,"m44":407,"r66":14.7,"m66":582},"ZvZ":{"n":45,"missM":3.54,"m44":514,"r66":0.0,"m66":null}}},{"id":"2017-q3-eu","period":"2017-q3","region":"eu","x":2017.625,"n":151,"upt":[60.4,43.43,34.1],"gen":[6.36,4.83,4.27],"miss":[1.93,3.58,3.61],"m44":417,"m66":632,"r44":71.5,"r66":14.6,"r200":13.2,"m200":810,"mu":{"ZvP":{"n":43,"missM":3.55,"m44":435,"r66":9.3,"m66":589},"ZvT":{"n":62,"missM":3.73,"m44":407,"r66":27.4,"m66":657},"ZvZ":{"n":46,"missM":2.92,"m44":400,"r66":2.2,"m66":557}}},{"id":"2017-q4-eu","period":"2017-q4","region":"eu","x":2017.875,"n":67,"upt":[52.52,43.69,25.88],"gen":[6.0,4.78,3.21],"miss":[2.07,3.63,4.17],"m44":435,"m66":750,"r44":62.7,"r66":10.4,"r200":1.5,"m200":828,"mu":{"ZvP":{"n":24,"missM":3.38,"m44":403,"r66":12.5,"m66":478},"ZvT":{"n":19,"missM":3.95,"m44":492,"r66":21.1,"m66":864},"ZvZ":{"n":24,"missM":3.31,"m44":435,"r66":0.0,"m66":null}}},{"id":"2017-q4-na","period":"2017-q4","region":"na","x":2017.875,"n":4,"upt":[50.38,26.43,null],"gen":[6.51,3.66,null],"miss":[0.93,3.71,null],"m44":428,"m66":null,"r44":75.0,"r66":0.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":2,"missM":3.85,"m44":442,"r66":0.0,"m66":null},"ZvT":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null},"ZvZ":{"n":2,"missM":2.89,"m44":428,"r66":0.0,"m66":null}}},{"id":"2018-q1-eu","period":"2018-q1","region":"eu","x":2018.125,"n":69,"upt":[53.95,45.97,37.5],"gen":[6.23,4.92,4.09],"miss":[1.94,3.65,4.0],"m44":400,"m66":542,"r44":53.6,"r66":14.5,"r200":11.6,"m200":814,"mu":{"ZvP":{"n":22,"missM":3.67,"m44":421,"r66":27.3,"m66":628},"ZvT":{"n":24,"missM":3.67,"m44":378,"r66":12.5,"m66":485},"ZvZ":{"n":23,"missM":3.49,"m44":421,"r66":4.3,"m66":378}}},{"id":"2018-q2-eu","period":"2018-q2","region":"eu","x":2018.375,"n":2,"upt":[61.34,46.49,5.82],"gen":[6.47,3.7,1.5],"miss":[2.0,4.9,4.56],"m44":350,"m66":1292,"r44":50.0,"r66":50.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":1,"missM":null,"m44":null,"r66":0.0,"m66":null},"ZvT":{"n":1,"missM":4.9,"m44":350,"r66":100.0,"m66":1292},"ZvZ":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null}}},{"id":"2018-q3-eu","period":"2018-q3","region":"eu","x":2018.625,"n":164,"upt":[54.42,46.72,35.56],"gen":[6.37,5.11,3.96],"miss":[1.79,3.51,4.07],"m44":396,"m66":664,"r44":61.0,"r66":17.7,"r200":6.7,"m200":871,"mu":{"ZvP":{"n":55,"missM":3.5,"m44":364,"r66":21.8,"m66":653},"ZvT":{"n":46,"missM":3.5,"m44":371,"r66":32.6,"m66":664},"ZvZ":{"n":63,"missM":3.55,"m44":521,"r66":3.2,"m66":689}}},{"id":"2019-q1-eu","period":"2019-q1","region":"eu","x":2019.125,"n":99,"upt":[58.65,55.24,34.31],"gen":[6.57,6.14,3.97],"miss":[1.39,3.05,3.87],"m44":328,"m66":528,"r44":78.8,"r66":41.4,"r200":25.3,"m200":685,"mu":{"ZvP":{"n":35,"missM":2.76,"m44":303,"r66":45.7,"m66":378},"ZvT":{"n":39,"missM":3.17,"m44":325,"r66":59.0,"m66":642},"ZvZ":{"n":25,"missM":3.28,"m44":457,"r66":8.0,"m66":664}}},{"id":"2019-q2-eu","period":"2019-q2","region":"eu","x":2019.375,"n":229,"upt":[54.91,53.57,33.22],"gen":[6.32,6.17,4.3],"miss":[1.58,2.85,3.53],"m44":378,"m66":521,"r44":74.2,"r66":44.1,"r200":16.2,"m200":750,"mu":{"ZvP":{"n":77,"missM":2.82,"m44":350,"r66":49.4,"m66":517},"ZvT":{"n":65,"missM":3.1,"m44":392,"r66":55.4,"m66":528},"ZvZ":{"n":87,"missM":2.62,"m44":400,"r66":31.0,"m66":528}}},{"id":"2019-q2-na","period":"2019-q2","region":"na","x":2019.375,"n":73,"upt":[62.02,53.81,32.56],"gen":[6.79,6.36,4.33],"miss":[1.19,2.69,3.53],"m44":371,"m66":546,"r44":74.0,"r66":38.4,"r200":6.8,"m200":728,"mu":{"ZvP":{"n":22,"missM":2.58,"m44":396,"r66":31.8,"m66":542},"ZvT":{"n":27,"missM":2.8,"m44":364,"r66":59.3,"m66":564},"ZvZ":{"n":24,"missM":2.57,"m44":375,"r66":20.8,"m66":585}}},{"id":"2019-q3-eu","period":"2019-q3","region":"eu","x":2019.625,"n":64,"upt":[53.56,47.23,27.39],"gen":[6.23,5.75,3.78],"miss":[2.08,2.87,3.67],"m44":367,"m66":542,"r44":40.6,"r66":25.0,"r200":12.5,"m200":953,"mu":{"ZvP":{"n":25,"missM":2.79,"m44":328,"r66":16.0,"m66":489},"ZvT":{"n":16,"missM":3.01,"m44":360,"r66":68.8,"m66":585},"ZvZ":{"n":23,"missM":2.68,"m44":378,"r66":4.3,"m66":542}}},{"id":"2019-q3-na","period":"2019-q3","region":"na","x":2019.625,"n":48,"upt":[53.46,36.42,21.54],"gen":[6.35,5.39,3.71],"miss":[1.6,2.6,3.39],"m44":382,"m66":603,"r44":62.5,"r66":25.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":10,"missM":2.52,"m44":357,"r66":50.0,"m66":607},"ZvT":{"n":20,"missM":2.61,"m44":371,"r66":30.0,"m66":482},"ZvZ":{"n":18,"missM":2.62,"m44":460,"r66":5.6,"m66":764}}},{"id":"2019-q4-eu","period":"2019-q4","region":"eu","x":2019.875,"n":124,"upt":[57.89,50.39,32.61],"gen":[6.82,6.1,4.66],"miss":[1.26,2.74,3.09],"m44":357,"m66":532,"r44":65.3,"r66":35.5,"r200":12.9,"m200":853,"mu":{"ZvP":{"n":37,"missM":2.72,"m44":328,"r66":40.5,"m66":521},"ZvT":{"n":36,"missM":2.55,"m44":350,"r66":61.1,"m66":478},"ZvZ":{"n":51,"missM":2.94,"m44":392,"r66":13.7,"m66":614}}},{"id":"2019-q4-na","period":"2019-q4","region":"na","x":2019.875,"n":4,"upt":[59.93,29.32,18.89],"gen":[6.93,4.6,3.58],"miss":[1.76,2.76,3.32],"m44":414,"m66":621,"r44":50.0,"r66":25.0,"r200":25.0,"m200":1192,"mu":{"ZvP":{"n":2,"missM":3.06,"m44":321,"r66":0.0,"m66":null},"ZvT":{"n":1,"missM":1.9,"m44":507,"r66":100.0,"m66":621},"ZvZ":{"n":1,"missM":null,"m44":null,"r66":0.0,"m66":null}}},{"id":"2020-q1-eu","period":"2020-q1","region":"eu","x":2020.125,"n":164,"upt":[53.19,47.89,30.21],"gen":[6.6,6.15,4.17],"miss":[1.28,2.54,3.44],"m44":342,"m66":500,"r44":54.3,"r66":32.3,"r200":11.6,"m200":821,"mu":{"ZvP":{"n":55,"missM":2.47,"m44":335,"r66":32.7,"m66":535},"ZvT":{"n":61,"missM":2.68,"m44":328,"r66":52.5,"m66":492},"ZvZ":{"n":48,"missM":2.37,"m44":453,"r66":6.2,"m66":735}}},{"id":"2020-q1-na","period":"2020-q1","region":"na","x":2020.125,"n":1,"upt":[55.55,59.6,null],"gen":[6.84,16.39,null],"miss":[1.38,4.1,null],"m44":null,"m66":null,"r44":0.0,"r66":0.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":1,"missM":4.1,"m44":null,"r66":0.0,"m66":null},"ZvT":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null},"ZvZ":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null}}},{"id":"2020-q2-eu","period":"2020-q2","region":"eu","x":2020.375,"n":208,"upt":[50.23,50.27,28.15],"gen":[6.54,6.07,4.09],"miss":[1.23,2.75,3.38],"m44":350,"m66":514,"r44":62.0,"r66":36.5,"r200":11.1,"m200":807,"mu":{"ZvP":{"n":65,"missM":2.97,"m44":357,"r66":43.1,"m66":557},"ZvT":{"n":72,"missM":2.57,"m44":342,"r66":63.9,"m66":503},"ZvZ":{"n":71,"missM":2.7,"m44":457,"r66":2.8,"m66":628}}},{"id":"2020-q3-eu","period":"2020-q3","region":"eu","x":2020.625,"n":233,"upt":[51.98,47.69,30.85],"gen":[6.79,5.96,4.36],"miss":[1.02,2.66,3.3],"m44":350,"m66":500,"r44":68.7,"r66":43.3,"r200":20.6,"m200":764,"mu":{"ZvP":{"n":65,"missM":2.72,"m44":364,"r66":40.0,"m66":475},"ZvT":{"n":97,"missM":2.68,"m44":321,"r66":67.0,"m66":492},"ZvZ":{"n":71,"missM":2.58,"m44":382,"r66":14.1,"m66":557}}},{"id":"2020-q3-na","period":"2020-q3","region":"na","x":2020.625,"n":73,"upt":[53.0,49.36,34.3],"gen":[6.81,6.09,4.32],"miss":[1.06,2.75,3.55],"m44":339,"m66":492,"r44":60.3,"r66":32.9,"r200":13.7,"m200":825,"mu":{"ZvP":{"n":24,"missM":2.53,"m44":307,"r66":16.7,"m66":442},"ZvT":{"n":27,"missM":2.93,"m44":339,"r66":70.4,"m66":500},"ZvZ":{"n":22,"missM":2.5,"m44":371,"r66":4.5,"m66":1028}}},{"id":"2020-q4-eu","period":"2020-q4","region":"eu","x":2020.875,"n":187,"upt":[51.87,48.29,28.19],"gen":[6.64,6.1,4.25],"miss":[1.23,2.65,3.24],"m44":335,"m66":500,"r44":64.7,"r66":34.8,"r200":11.8,"m200":746,"mu":{"ZvP":{"n":53,"missM":2.53,"m44":325,"r66":43.4,"m66":500},"ZvT":{"n":64,"missM":2.35,"m44":332,"r66":48.4,"m66":478},"ZvZ":{"n":70,"missM":3.03,"m44":421,"r66":15.7,"m66":635}}},{"id":"2020-q4-na","period":"2020-q4","region":"na","x":2020.875,"n":146,"upt":[47.54,39.47,23.67],"gen":[6.37,5.46,3.74],"miss":[1.31,2.68,3.46],"m44":346,"m66":532,"r44":65.8,"r66":38.4,"r200":15.8,"m200":757,"mu":{"ZvP":{"n":48,"missM":2.91,"m44":378,"r66":35.4,"m66":500},"ZvT":{"n":56,"missM":2.55,"m44":317,"r66":55.4,"m66":521},"ZvZ":{"n":42,"missM":2.63,"m44":350,"r66":19.0,"m66":625}}},{"id":"2021-q1-eu","period":"2021-q1","region":"eu","x":2021.125,"n":53,"upt":[46.97,46.81,40.9],"gen":[6.28,5.98,4.92],"miss":[1.34,2.58,3.48],"m44":357,"m66":535,"r44":69.8,"r66":35.8,"r200":11.3,"m200":725,"mu":{"ZvP":{"n":20,"missM":2.53,"m44":378,"r66":45.0,"m66":571},"ZvT":{"n":14,"missM":2.72,"m44":350,"r66":50.0,"m66":550},"ZvZ":{"n":19,"missM":2.43,"m44":350,"r66":15.8,"m66":514}}},{"id":"2021-q1-na","period":"2021-q1","region":"na","x":2021.125,"n":83,"upt":[42.49,46.02,25.8],"gen":[6.24,6.11,4.33],"miss":[1.31,2.42,3.0],"m44":335,"m66":485,"r44":61.4,"r66":37.3,"r200":9.6,"m200":928,"mu":{"ZvP":{"n":29,"missM":2.35,"m44":317,"r66":44.8,"m66":492},"ZvT":{"n":24,"missM":2.56,"m44":332,"r66":66.7,"m66":446},"ZvZ":{"n":30,"missM":2.39,"m44":392,"r66":6.7,"m66":682}}},{"id":"2021-q2-eu","period":"2021-q2","region":"eu","x":2021.375,"n":10,"upt":[54.61,60.1,25.15],"gen":[6.83,6.96,3.64],"miss":[1.17,2.46,3.7],"m44":385,"m66":550,"r44":70.0,"r66":30.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":2,"missM":2.19,"m44":285,"r66":0.0,"m66":null},"ZvT":{"n":5,"missM":2.74,"m44":375,"r66":60.0,"m66":550},"ZvZ":{"n":3,"missM":1.62,"m44":442,"r66":0.0,"m66":null}}},{"id":"2021-q2-na","period":"2021-q2","region":"na","x":2021.375,"n":57,"upt":[47.74,44.28,26.28],"gen":[6.22,5.49,3.64],"miss":[1.4,2.95,3.74],"m44":335,"m66":514,"r44":71.9,"r66":43.9,"r200":21.1,"m200":942,"mu":{"ZvP":{"n":17,"missM":2.71,"m44":335,"r66":41.2,"m66":535},"ZvT":{"n":20,"missM":3.06,"m44":321,"r66":65.0,"m66":500},"ZvZ":{"n":20,"missM":3.04,"m44":364,"r66":25.0,"m66":514}}},{"id":"2021-q3-eu","period":"2021-q3","region":"eu","x":2021.625,"n":79,"upt":[50.6,50.58,29.63],"gen":[6.62,6.13,4.22],"miss":[1.48,2.73,3.33],"m44":382,"m66":564,"r44":68.4,"r66":32.9,"r200":10.1,"m200":853,"mu":{"ZvP":{"n":24,"missM":2.85,"m44":335,"r66":29.2,"m66":457},"ZvT":{"n":26,"missM":2.43,"m44":389,"r66":65.4,"m66":571},"ZvZ":{"n":29,"missM":2.95,"m44":414,"r66":6.9,"m66":714}}},{"id":"2021-q3-na","period":"2021-q3","region":"na","x":2021.625,"n":73,"upt":[48.84,40.05,23.23],"gen":[6.4,5.31,2.9],"miss":[1.55,2.9,4.25],"m44":382,"m66":550,"r44":63.0,"r66":30.1,"r200":6.8,"m200":814,"mu":{"ZvP":{"n":21,"missM":3.01,"m44":371,"r66":47.6,"m66":503},"ZvT":{"n":24,"missM":2.75,"m44":371,"r66":45.8,"m66":564},"ZvZ":{"n":28,"missM":3.03,"m44":392,"r66":3.6,"m66":657}}},{"id":"2021-q4-eu","period":"2021-q4","region":"eu","x":2021.875,"n":158,"upt":[49.36,49.81,33.7],"gen":[6.38,5.97,4.34],"miss":[1.4,2.8,3.49],"m44":307,"m66":485,"r44":63.3,"r66":38.0,"r200":14.6,"m200":792,"mu":{"ZvP":{"n":57,"missM":2.91,"m44":314,"r66":40.4,"m66":528},"ZvT":{"n":61,"missM":2.73,"m44":300,"r66":59.0,"m66":475},"ZvZ":{"n":40,"missM":2.81,"m44":417,"r66":2.5,"m66":671}}},{"id":"2021-q4-na","period":"2021-q4","region":"na","x":2021.875,"n":73,"upt":[53.34,51.08,27.73],"gen":[6.64,6.07,4.12],"miss":[1.19,2.81,3.32],"m44":314,"m66":500,"r44":64.4,"r66":42.5,"r200":15.1,"m200":907,"mu":{"ZvP":{"n":22,"missM":2.94,"m44":314,"r66":22.7,"m66":550},"ZvT":{"n":29,"missM":2.79,"m44":307,"r66":75.9,"m66":496},"ZvZ":{"n":22,"missM":2.62,"m44":371,"r66":18.2,"m66":528}}},{"id":"2022-q1-eu","period":"2022-q1","region":"eu","x":2022.125,"n":135,"upt":[51.42,47.84,38.46],"gen":[6.5,5.87,4.5],"miss":[1.33,2.78,3.6],"m44":314,"m66":492,"r44":70.4,"r66":45.9,"r200":24.4,"m200":814,"mu":{"ZvP":{"n":40,"missM":2.83,"m44":307,"r66":52.5,"m66":492},"ZvT":{"n":57,"missM":2.78,"m44":307,"r66":71.9,"m66":507},"ZvZ":{"n":38,"missM":2.71,"m44":453,"r66":0.0,"m66":null}}},{"id":"2022-q1-na","period":"2022-q1","region":"na","x":2022.125,"n":2,"upt":[50.5,47.42,45.36],"gen":[6.88,5.78,5.61],"miss":[0.69,2.69,3.14],"m44":325,"m66":742,"r44":100.0,"r66":50.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null},"ZvT":{"n":2,"missM":2.69,"m44":325,"r66":50.0,"m66":742},"ZvZ":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null}}},{"id":"2023-q1-eu","period":"2023-q1","region":"eu","x":2023.125,"n":18,"upt":[46.79,45.89,34.78],"gen":[6.27,6.37,4.71],"miss":[1.21,2.16,3.19],"m44":285,"m66":435,"r44":83.3,"r66":55.6,"r200":22.2,"m200":803,"mu":{"ZvP":{"n":4,"missM":1.72,"m44":278,"r66":50.0,"m66":385},"ZvT":{"n":10,"missM":1.83,"m44":292,"r66":70.0,"m66":442},"ZvZ":{"n":4,"missM":2.65,"m44":285,"r66":25.0,"m66":464}}},{"id":"2023-q2-eu","period":"2023-q2","region":"eu","x":2023.375,"n":74,"upt":[56.07,52.22,41.27],"gen":[7.03,6.26,5.28],"miss":[0.8,2.63,3.04],"m44":300,"m66":460,"r44":77.0,"r66":40.5,"r200":10.8,"m200":757,"mu":{"ZvP":{"n":26,"missM":2.6,"m44":300,"r66":57.7,"m66":450},"ZvT":{"n":17,"missM":2.13,"m44":292,"r66":70.6,"m66":460},"ZvZ":{"n":31,"missM":2.81,"m44":317,"r66":9.7,"m66":671}}},{"id":"2025-q2-eu","period":"2025-q2","region":"eu","x":2025.375,"n":16,"upt":[64.94,55.72,22.0],"gen":[7.19,6.8,3.24],"miss":[0.79,2.39,3.82],"m44":285,"m66":400,"r44":93.8,"r66":43.8,"r200":25.0,"m200":675,"mu":{"ZvP":{"n":4,"missM":1.96,"m44":296,"r66":25.0,"m66":350},"ZvT":{"n":9,"missM":1.98,"m44":285,"r66":66.7,"m66":410},"ZvZ":{"n":3,"missM":3.47,"m44":453,"r66":0.0,"m66":null}}},{"id":"2025-q3-eu","period":"2025-q3","region":"eu","x":2025.625,"n":40,"upt":[55.84,50.73,34.16],"gen":[6.72,6.48,4.99],"miss":[1.27,2.38,2.91],"m44":350,"m66":542,"r44":77.5,"r66":40.0,"r200":10.0,"m200":828,"mu":{"ZvP":{"n":15,"missM":2.19,"m44":346,"r66":33.3,"m66":450},"ZvT":{"n":12,"missM":2.37,"m44":342,"r66":66.7,"m66":542},"ZvZ":{"n":13,"missM":2.68,"m44":407,"r66":23.1,"m66":557}}},{"id":"2025-q3-na","period":"2025-q3","region":"na","x":2025.625,"n":1,"upt":[51.64,81.24,44.89],"gen":[6.45,7.93,6.88],"miss":[0.66,2.96,1.95],"m44":314,"m66":400,"r44":100.0,"r66":100.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":1,"missM":2.96,"m44":314,"r66":100.0,"m66":400},"ZvT":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null},"ZvZ":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null}}},{"id":"2026-m01-m02-eu","period":"2026-m01-m02","region":"eu","x":2026.0833,"n":5,"upt":[36.54,71.71,42.31],"gen":[5.73,6.66,7.31],"miss":[1.44,3.3,2.14],"m44":407,"m66":489,"r44":60.0,"r66":40.0,"r200":0.0,"m200":null,"mu":{"ZvP":{"n":2,"missM":3.71,"m44":446,"r66":50.0,"m66":485},"ZvT":{"n":2,"missM":2.38,"m44":407,"r66":50.0,"m66":492},"ZvZ":{"n":1,"missM":null,"m44":null,"r66":0.0,"m66":null}}},{"id":"2026-m03-m04-eu","period":"2026-m03-m04","region":"eu","x":2026.25,"n":140,"upt":[56.68,55.49,34.21],"gen":[6.73,6.62,4.65],"miss":[1.14,2.54,3.21],"m44":321,"m66":471,"r44":80.7,"r66":45.7,"r200":18.6,"m200":710,"mu":{"ZvP":{"n":45,"missM":2.59,"m44":300,"r66":57.8,"m66":453},"ZvT":{"n":45,"missM":2.36,"m44":307,"r66":75.6,"m66":475},"ZvZ":{"n":50,"missM":2.63,"m44":346,"r66":8.0,"m66":514}}},{"id":"2026-m03-m04-na","period":"2026-m03-m04","region":"na","x":2026.25,"n":39,"upt":[45.16,52.81,32.55],"gen":[6.42,6.35,4.9],"miss":[1.08,2.64,2.83],"m44":300,"m66":442,"r44":69.2,"r66":43.6,"r200":12.8,"m200":735,"mu":{"ZvP":{"n":15,"missM":2.47,"m44":300,"r66":66.7,"m66":442},"ZvT":{"n":12,"missM":2.36,"m44":278,"r66":58.3,"m66":442},"ZvZ":{"n":12,"missM":3.11,"m44":364,"r66":0.0,"m66":null}}},{"id":"2026-m05-m06-eu","period":"2026-m05-m06","region":"eu","x":2026.4167,"n":109,"upt":[52.08,50.22,34.51],"gen":[6.99,6.56,4.61],"miss":[0.75,2.25,3.26],"m44":314,"m66":492,"r44":73.4,"r66":39.4,"r200":11.0,"m200":789,"mu":{"ZvP":{"n":27,"missM":2.24,"m44":307,"r66":55.6,"m66":464},"ZvT":{"n":42,"missM":2.14,"m44":292,"r66":64.3,"m66":492},"ZvZ":{"n":40,"missM":2.53,"m44":375,"r66":2.5,"m66":514}}},{"id":"2026-m05-m06-na","period":"2026-m05-m06","region":"na","x":2026.4167,"n":57,"upt":[47.88,52.85,34.03],"gen":[6.7,6.78,4.46],"miss":[0.98,2.31,3.41],"m44":321,"m66":467,"r44":77.2,"r66":45.6,"r200":17.5,"m200":767,"mu":{"ZvP":{"n":16,"missM":2.62,"m44":292,"r66":75.0,"m66":450},"ZvT":{"n":19,"missM":2.09,"m44":314,"r66":73.7,"m66":478},"ZvZ":{"n":22,"missM":2.2,"m44":367,"r66":0.0,"m66":null}}},{"id":"2026-m07-m08-eu","period":"2026-m07-m08","region":"eu","x":2026.5833,"n":144,"upt":[47.4,52.27,35.16],"gen":[7.06,6.77,5.09],"miss":[0.85,2.44,3.03],"m44":357,"m66":557,"r44":70.1,"r66":39.6,"r200":9.7,"m200":814,"mu":{"ZvP":{"n":40,"missM":2.55,"m44":342,"r66":55.0,"m66":582},"ZvT":{"n":44,"missM":2.14,"m44":342,"r66":72.7,"m66":546},"ZvZ":{"n":60,"missM":2.76,"m44":425,"r66":5.0,"m66":542}}},{"id":"2026-m07-m08-na","period":"2026-m07-m08","region":"na","x":2026.5833,"n":46,"upt":[41.45,44.94,33.01],"gen":[6.8,6.16,4.55],"miss":[1.06,2.53,3.45],"m44":357,"m66":517,"r44":58.7,"r66":30.4,"r200":10.9,"m200":757,"mu":{"ZvP":{"n":13,"missM":2.36,"m44":371,"r66":30.8,"m66":489},"ZvT":{"n":15,"missM":2.48,"m44":342,"r66":60.0,"m66":514},"ZvZ":{"n":18,"missM":2.68,"m44":450,"r66":5.6,"m66":564}}},{"id":"2026-m09-m10-eu","period":"2026-m09-m10","region":"eu","x":2026.75,"n":125,"upt":[54.24,54.36,30.94],"gen":[7.07,6.83,4.64],"miss":[0.98,2.33,3.06],"m44":342,"m66":464,"r44":74.4,"r66":42.4,"r200":16.8,"m200":742,"mu":{"ZvP":{"n":37,"missM":2.36,"m44":335,"r66":59.5,"m66":464},"ZvT":{"n":41,"missM":2.14,"m44":335,"r66":63.4,"m66":464},"ZvZ":{"n":47,"missM":2.45,"m44":396,"r66":10.6,"m66":507}}},{"id":"2026-m09-m10-na","period":"2026-m09-m10","region":"na","x":2026.75,"n":21,"upt":[48.39,44.79,27.68],"gen":[6.93,6.77,5.46],"miss":[0.98,1.92,2.23],"m44":357,"m66":585,"r44":66.7,"r66":42.9,"r200":4.8,"m200":1028,"mu":{"ZvP":{"n":5,"missM":1.89,"m44":357,"r66":40.0,"m66":525},"ZvT":{"n":12,"missM":1.92,"m44":350,"r66":58.3,"m66":585},"ZvZ":{"n":4,"missM":1.9,"m44":392,"r66":0.0,"m66":null}}},{"id":"2026-m11-m12-eu","period":"2026-m11-m12","region":"eu","x":2026.9167,"n":42,"upt":[60.82,49.63,32.15],"gen":[6.94,6.41,5.12],"miss":[0.96,2.42,2.63],"m44":321,"m66":492,"r44":85.7,"r66":59.5,"r200":16.7,"m200":778,"mu":{"ZvP":{"n":11,"missM":2.47,"m44":314,"r66":81.8,"m66":507},"ZvT":{"n":14,"missM":2.23,"m44":314,"r66":85.7,"m66":478},"ZvZ":{"n":17,"missM":2.54,"m44":396,"r66":23.5,"m66":503}}},{"id":"2026-m11-m12-na","period":"2026-m11-m12","region":"na","x":2026.9167,"n":10,"upt":[51.59,54.32,29.6],"gen":[6.96,6.9,4.86],"miss":[0.58,2.18,2.64],"m44":307,"m66":471,"r44":100.0,"r66":70.0,"r200":20.0,"m200":803,"mu":{"ZvP":{"n":2,"missM":2.46,"m44":282,"r66":0.0,"m66":null},"ZvT":{"n":8,"missM":2.1,"m44":325,"r66":87.5,"m66":471},"ZvZ":{"n":0,"missM":null,"m44":null,"r66":null,"m66":null}}}]</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var EU = D.filter(function (r) { return r.region === 'eu' && r.n >= 20; });
+  var ALL = D;
+  function css(v) { return getComputedStyle(document.documentElement).getPropertyValue(v).trim(); }
+  function mmss(s) { if (s == null) return 'n/a'; return Math.floor(s / 60) + ':' + ('0' + Math.round(s % 60)).slice(-2); }
+  function label(p) { return p.replace(/-m(\d\d)-m(\d\d)/, function (_, a, b) { var M = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']; return ' ' + M[+a - 1] + '–' + M[+b - 1]; }).replace('-q', ' Q'); }
+  var totalGames = D.reduce(function (a, r) { return a + r.n; }, 0);
+  document.getElementById('meta').textContent = totalGames.toLocaleString('en-US') + ' ladder games analysed · ' + D.length + ' period panels · report dated 28 Nov 2026';
+
+  function el(tag, attrs, parent) {
+    var e = document.createElementNS('http://www.w3.org/2000/svg', tag);
+    for (var k in attrs) e.setAttribute(k, attrs[k]);
+    if (parent) parent.appendChild(e);
+    return e;
+  }
+  function legend(id, items) {
+    var L = document.getElementById(id);
+    L.innerHTML = items.map(function (s) { return '<span><i class="' + (s.dot ? 'dot' : '') + '" style="background:var(' + s.color + ')"></i>' + s.name + '</span>'; }).join('');
+  }
+  function table(id, head, rows, cls) {
+    var h = '<table' + (cls ? ' class="' + cls + '"' : '') + '><thead><tr>' + head.map(function (c) { return '<th>' + c + '</th>'; }).join('') + '</tr></thead><tbody>';
+    rows.forEach(function (r) { h += '<tr' + (r.cls ? ' class="' + r.cls + '"' : '') + '>' + r.cells.map(function (c) { return '<td>' + c + '</td>'; }).join('') + '</tr>'; });
+    document.getElementById(id).innerHTML = h + '</tbody></table>';
+  }
+
+  var X0 = 2016, X1 = 2027, BREAK = [2023.5, 2025.25];
+  function lineChart(id, opt) {
+    var host = document.getElementById(id);
+    var tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true;
+    function draw() {
+      host.innerHTML = ''; host.appendChild(tip);
+      var W = Math.max(300, host.clientWidth), narrow = W < 520;
+      var H = narrow ? 220 : 260, m = { t: 12, r: narrow ? 52 : 70, b: 26, l: 42 };
+      var iw = W - m.l - m.r, ih = H - m.t - m.b;
+      var sx = function (x) { return m.l + (x - X0) / (X1 - X0) * iw; };
+      var sy = function (y) { return m.t + ih - (y - opt.y0) / (opt.y1 - opt.y0) * ih; };
+      var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': opt.aria }, host);
+      el('rect', { x: sx(BREAK[0]), y: m.t, width: sx(BREAK[1]) - sx(BREAK[0]), height: ih, fill: css('--band') }, svg);
+      var bt = el('text', { x: (sx(BREAK[0]) + sx(BREAK[1])) / 2, y: m.t + 14, 'text-anchor': 'middle', class: 'brk' }, svg); bt.textContent = 'break';
+      opt.ticks.forEach(function (t) {
+        el('line', { x1: m.l, x2: m.l + iw, y1: sy(t), y2: sy(t), stroke: css('--grid'), 'stroke-width': 1 }, svg);
+        var tx = el('text', { x: m.l - 8, y: sy(t) + 4, 'text-anchor': 'end' }, svg); tx.textContent = opt.fmt(t);
+      });
+      for (var y = X0; y <= X1; y += (narrow ? 2 : 1)) {
+        var t2 = el('text', { x: sx(y), y: H - 6, 'text-anchor': 'middle' }, svg); t2.textContent = narrow ? "'" + String(y).slice(2) : y;
+      }
+      el('line', { x1: m.l, x2: m.l + iw, y1: m.t + ih, y2: m.t + ih, stroke: css('--rule'), 'stroke-width': 1 }, svg);
+      var rows = opt.rows;
+      var lastY = [];
+      opt.series.forEach(function (s) {
+        var col = css(s.color), seg = [], segs = [];
+        rows.forEach(function (r, i) {
+          var v = s.get(r); if (v == null) return;
+          if (seg.length && r.x - seg[seg.length - 1].r.x > 0.6) { segs.push(seg); seg = []; }
+          seg.push({ r: r, v: v });
+        });
+        if (seg.length) segs.push(seg);
+        segs.forEach(function (sg) {
+          var d = sg.map(function (p, i) { return (i ? 'L' : 'M') + sx(p.r.x).toFixed(1) + ' ' + sy(p.v).toFixed(1); }).join(' ');
+          el('path', { d: d, fill: 'none', stroke: col, 'stroke-width': 2, 'stroke-linejoin': 'round', 'stroke-linecap': 'round' }, svg);
+          sg.forEach(function (p) { el('circle', { cx: sx(p.r.x), cy: sy(p.v), r: 2.6, fill: col, stroke: css('--surface'), 'stroke-width': 1 }, svg); });
+        });
+        var last = segs.length ? segs[segs.length - 1] : null;
+        if (last && opt.series.length > 1) {
+          var p = last[last.length - 1];
+          lastY.push({ y: sy(p.v), name: s.name, x: sx(p.r.x) });
+        }
+      });
+      lastY.sort(function (a, b) { return a.y - b.y; });
+      for (var i = 1; i < lastY.length; i++) if (lastY[i].y - lastY[i - 1].y < 14) lastY[i].y = lastY[i - 1].y + 14;
+      lastY.forEach(function (l) { var t = el('text', { x: l.x + 8, y: l.y + 4, class: 'lbl' }, svg); t.textContent = l.name; });
+      var cross = el('line', { y1: m.t, y2: m.t + ih, stroke: css('--ink-3'), 'stroke-width': 1, 'stroke-dasharray': '3 3', opacity: 0 }, svg);
+      var hit = el('rect', { x: m.l, y: m.t, width: iw, height: ih, fill: 'transparent' }, svg);
+      function move(ev) {
+        var b = svg.getBoundingClientRect(), px = (ev.clientX - b.left) * (W / b.width);
+        var best = null, bd = 1e9;
+        rows.forEach(function (r) { var d = Math.abs(sx(r.x) - px); if (d < bd) { bd = d; best = r; } });
+        if (!best || bd > 30) { tip.hidden = true; cross.setAttribute('opacity', 0); return; }
+        cross.setAttribute('x1', sx(best.x)); cross.setAttribute('x2', sx(best.x)); cross.setAttribute('opacity', 1);
+        var h = '<b>' + label(best.period) + ' · ' + best.n + ' games</b>';
+        opt.series.forEach(function (s) { var v = s.get(best); h += '<div><span class="sw" style="background:var(' + s.color + ')"></span>' + s.name + ': ' + (v == null ? 'n/a' : opt.fmt(v, true)) + '</div>'; });
+        tip.innerHTML = h; tip.hidden = false;
+        var left = sx(best.x) / W * host.clientWidth + 12;
+        if (left + tip.offsetWidth > host.clientWidth) left = sx(best.x) / W * host.clientWidth - tip.offsetWidth - 12;
+        tip.style.left = Math.max(0, left) + 'px'; tip.style.top = '4px';
+      }
+      hit.addEventListener('pointermove', move);
+      hit.addEventListener('pointerdown', move);
+      hit.addEventListener('pointerleave', function () { tip.hidden = true; cross.setAttribute('opacity', 0); });
+    }
+    draw();
+    var w0 = host.clientWidth;
+    new ResizeObserver(function () { if (Math.abs(host.clientWidth - w0) > 4) { w0 = host.clientWidth; draw(); } }).observe(host);
+    var mq = window.matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', draw);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  }
+
+  var phases = [
+    { name: 'Early', color: '--p-early', i: 0 },
+    { name: 'Mid', color: '--p-mid', i: 1 },
+    { name: 'Late', color: '--p-late', i: 2 }
+  ];
+  function phaseSeries(key) { return phases.map(function (p) { return { name: p.name, color: p.color, get: function (r) { return r[key][p.i]; } }; }); }
+  var f2 = function (v) { return v.toFixed(v % 1 && arguments[1] ? 2 : (v % 1 ? 1 : 0)); };
+  function fx(d) { return function (v, full) { return full ? v.toFixed(d) : String(+v.toFixed(d)); }; }
+
+  legend('lg-miss', phases); legend('lg-gen', phases); legend('lg-upt', phases);
+  lineChart('c-miss', { rows: EU, series: phaseSeries('miss'), y0: 0, y1: 5, ticks: [0, 1, 2, 3, 4, 5], fmt: fx(2), aria: 'Larva missed per hatchery per minute by phase, EU, 2016 to 2026' });
+  lineChart('c-gen', { rows: EU, series: phaseSeries('gen'), y0: 2, y1: 8, ticks: [2, 4, 6, 8], fmt: fx(2), aria: 'Larva generated per hatchery per minute by phase, EU' });
+  lineChart('c-upt', { rows: EU, series: phaseSeries('upt'), y0: 0, y1: 70, ticks: [0, 20, 40, 60], fmt: function (v, full) { return full ? v.toFixed(1) + '%' : v + '%'; }, aria: 'Inject uptime by phase, EU' });
+  lineChart('c-m44', { rows: EU, series: [{ name: '44 drones', color: '--accent', get: function (r) { return r.m44; } }], y0: 240, y1: 660, ticks: [240, 300, 360, 420, 480, 540, 600, 660], fmt: function (v) { return mmss(v); }, aria: 'Median time to 44 drones, EU' });
+  lineChart('c-r66', { rows: EU, series: [{ name: 'Reached 66 drones', color: '--accent', get: function (r) { return r.r66; } }], y0: 0, y1: 60, ticks: [0, 20, 40, 60], fmt: function (v, full) { return (full ? v.toFixed(0) : v) + '%'; }, aria: 'Share of games reaching 66 drones, EU' });
+  lineChart('c-r200', { rows: EU, series: [{ name: 'Reached 200 supply', color: '--accent', get: function (r) { return r.r200; } }], y0: 0, y1: 30, ticks: [0, 10, 20, 30], fmt: function (v, full) { return (full ? v.toFixed(0) : v) + '%'; }, aria: 'Share of games reaching 200 supply, EU' });
+
+  function phaseTable(id, key, fmt) {
+    table(id, ['Period', 'Games', 'Early', 'Mid', 'Late'], EU.map(function (r) { return { cells: [label(r.period), r.n].concat(r[key].map(function (v) { return v == null ? 'n/a' : fmt(v); })) }; }));
+  }
+  phaseTable('t-miss', 'miss', function (v) { return v.toFixed(2); });
+  phaseTable('t-gen', 'gen', function (v) { return v.toFixed(2); });
+  phaseTable('t-upt', 'upt', function (v) { return v.toFixed(1) + '%'; });
+  table('t-m44', ['Period', 'Games', '44 drones', 'reached'], EU.map(function (r) { return { cells: [label(r.period), r.n, mmss(r.m44), r.r44 + '%'] }; }));
+  table('t-reach', ['Period', 'Games', '66 drones', '66 reached', '200 supply', '200 reached'], EU.map(function (r) { return { cells: [label(r.period), r.n, mmss(r.m66), r.r66 + '%', mmss(r.m200), r.r200 + '%'] }; }));
+
+  // Era table
+  var eras = [['2016', ['2016']], ['2017–18', ['2017', '2018']], ['2019–20', ['2019', '2020']], ['2021–23', ['2021', '2022', '2023']], ['2025', ['2025']], ['2026', ['2026']]];
+  var eraRows = eras.map(function (e) {
+    var rs = D.filter(function (r) { return r.region === 'eu' && r.n >= 10 && e[1].indexOf(r.period.slice(0, 4)) >= 0; });
+    var n = rs.reduce(function (a, r) { return a + r.n; }, 0);
+    function w(get) { var s = 0, k = 0; rs.forEach(function (r) { var v = get(r); if (v != null) { s += v * r.n; k += r.n; } }); return k ? s / k : null; }
+    var c = [e[0], n,
+      [0, 1, 2].map(function (i) { return w(function (r) { return r.gen[i]; }).toFixed(2); }).join(' / '),
+      [0, 1, 2].map(function (i) { return w(function (r) { return r.miss[i]; }).toFixed(2); }).join(' / '),
+      Math.round(w(function (r) { return r.upt[1]; })) + '% / ' + Math.round(w(function (r) { return r.upt[2]; })) + '%',
+      mmss(w(function (r) { return r.m44; })), Math.round(w(function (r) { return r.r66; })) + '%', Math.round(w(function (r) { return r.r200; })) + '%'];
+    return { cells: c, cls: e[0] === '2026' ? 'now' : '' };
+  });
+  table('eraTable', ['Era', 'Games', 'Larva gen E / M / L', 'Larva missed E / M / L', 'Uptime M / L', '44 drones', 'Reach 66 dr.', 'Reach 200'], eraRows, 'era');
+
+  // 2026 matchup table (EU, Mar–Dec)
+  var y26 = D.filter(function (r) { return r.region === 'eu' && r.period.indexOf('2026') === 0 && r.n >= 20; });
+  var muRows = ['ZvP', 'ZvT', 'ZvZ'].map(function (mu) {
+    var n = 0, s44 = 0, k44 = 0, r66 = 0, sm = 0, km = 0;
+    y26.forEach(function (r) { var m = r.mu[mu]; if (!m) return; n += m.n; if (m.m44 != null) { s44 += m.m44 * m.n; k44 += m.n; } r66 += (m.r66 || 0) * m.n / 100; if (m.missM != null) { sm += m.missM * m.n; km += m.n; } });
+    var per = y26.map(function (r) { var m = r.mu[mu]; return m ? mmss(m.m44) : 'n/a'; }).join(' · ');
+    return { cells: [mu, n, mmss(s44 / k44), Math.round(r66 / n * 100) + '%', (sm / km).toFixed(2), per] };
+  });
+  table('muTable', ['Matchup', 'Games', '44 drones (avg of medians)', 'Reach 66 drones', 'Mid missed', '44 drones by period (Mar–Apr … Nov–Dec)'], muRows);
+
+  // Volume: grouped bars EU / NA
+  (function () {
+    var host = document.getElementById('c-vol');
+    var tip = document.createElement('div'); tip.className = 'tip'; tip.hidden = true;
+    var byP = {}; D.forEach(function (r) { (byP[r.period] = byP[r.period] || { period: r.period, x: r.x })[r.region] = r.n; });
+    var P = Object.keys(byP).sort().map(function (k) { return byP[k]; });
+    legend('lg-vol', [{ name: 'EU', color: '--r-eu', dot: true }, { name: 'NA', color: '--r-na', dot: true }]);
+    table('t-vol', ['Period', 'EU', 'NA'], P.map(function (p) { return { cells: [label(p.period), p.eu || 0, p.na || 0] }; }));
+    function draw() {
+      host.innerHTML = ''; host.appendChild(tip);
+      var W = Math.max(300, host.clientWidth), narrow = W < 520, H = narrow ? 200 : 230, m = { t: 10, r: 10, b: 26, l: 36 };
+      var iw = W - m.l - m.r, ih = H - m.t - m.b, ymax = 250;
+      var sx = function (x) { return m.l + (x - X0) / (X1 - X0) * iw; }, sy = function (v) { return m.t + ih - v / ymax * ih; };
+      var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, role: 'img', 'aria-label': 'Ladder games per period, EU and NA' }, host);
+      el('rect', { x: sx(BREAK[0]), y: m.t, width: sx(BREAK[1]) - sx(BREAK[0]), height: ih, fill: css('--band') }, svg);
+      [0, 100, 200].forEach(function (t) {
+        el('line', { x1: m.l, x2: m.l + iw, y1: sy(t), y2: sy(t), stroke: css('--grid') }, svg);
+        var tx = el('text', { x: m.l - 6, y: sy(t) + 4, 'text-anchor': 'end' }, svg); tx.textContent = t;
+      });
+      for (var y = X0; y <= X1; y += (narrow ? 2 : 1)) { var t2 = el('text', { x: sx(y), y: H - 6, 'text-anchor': 'middle' }, svg); t2.textContent = narrow ? "'" + String(y).slice(2) : y; }
+      var bw = Math.max(2, Math.min(9, iw / 11 / 4 / 2 - 1));
+      P.forEach(function (p) {
+        var cx = sx(p.x);
+        [['eu', '--r-eu', -1], ['na', '--r-na', 1]].forEach(function (s) {
+          var v = p[s[0]] || 0; if (!v) return;
+          var x = s[2] < 0 ? cx - bw - 1 : cx + 1, y0 = sy(Math.min(v, ymax)), h = m.t + ih - y0;
+          var r = Math.min(2, bw / 2, h);
+          el('path', { d: 'M' + x + ' ' + (m.t + ih) + 'V' + (y0 + r) + 'Q' + x + ' ' + y0 + ' ' + (x + r) + ' ' + y0 + 'H' + (x + bw - r) + 'Q' + (x + bw) + ' ' + y0 + ' ' + (x + bw) + ' ' + (y0 + r) + 'V' + (m.t + ih) + 'Z', fill: css(s[1]) }, svg);
+        });
+      });
+      el('line', { x1: m.l, x2: m.l + iw, y1: m.t + ih, y2: m.t + ih, stroke: css('--rule') }, svg);
+      var hit = el('rect', { x: m.l, y: m.t, width: iw, height: ih, fill: 'transparent' }, svg);
+      function move(ev) {
+        var b = svg.getBoundingClientRect(), px = (ev.clientX - b.left) * (W / b.width), best = null, bd = 1e9;
+        P.forEach(function (p) { var d = Math.abs(sx(p.x) - px); if (d < bd) { bd = d; best = p; } });
+        if (!best || bd > 20) { tip.hidden = true; return; }
+        tip.innerHTML = '<b>' + label(best.period) + '</b><div><span class="sw" style="background:var(--r-eu)"></span>EU: ' + (best.eu || 0) + '</div><div><span class="sw" style="background:var(--r-na)"></span>NA: ' + (best.na || 0) + '</div>';
+        tip.hidden = false;
+        var left = sx(best.x) / W * host.clientWidth + 12;
+        if (left + tip.offsetWidth > host.clientWidth) left = sx(best.x) / W * host.clientWidth - tip.offsetWidth - 12;
+        tip.style.left = Math.max(0, left) + 'px'; tip.style.top = '4px';
+      }
+      hit.addEventListener('pointermove', move); hit.addEventListener('pointerdown', move);
+      hit.addEventListener('pointerleave', function () { tip.hidden = true; });
+    }
+    draw();
+    var w0 = host.clientWidth;
+    new ResizeObserver(function () { if (Math.abs(host.clientWidth - w0) > 4) { w0 = host.clientWidth; draw(); } }).observe(host);
+    var mq = window.matchMedia('(prefers-color-scheme: dark)'); if (mq.addEventListener) mq.addEventListener('change', draw);
+    new MutationObserver(draw).observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+  })();
+})();
+</script>
+</body></html>
